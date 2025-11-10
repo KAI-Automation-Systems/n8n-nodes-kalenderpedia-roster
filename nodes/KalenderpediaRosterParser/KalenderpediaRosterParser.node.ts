@@ -1,6 +1,6 @@
 // nodes/KalenderpediaRosterParser/KalenderpediaRosterParser.node.ts
-import { IExecuteFunctions } from 'n8n-core';
-import {
+import type {
+  IExecuteFunctions,
   INodeExecutionData,
   INodeType,
   INodeTypeDescription,
@@ -8,6 +8,7 @@ import {
 
 import { parseRosterFilename, FilenameParseError } from './filename';
 import { extractDaysWithSabine, PdfParseError } from './pdf';
+
 
 export class KalenderpediaRosterParser implements INodeType {
   description: INodeTypeDescription = {
@@ -62,19 +63,45 @@ export class KalenderpediaRosterParser implements INodeType {
       const pdfBuffer = Buffer.from(cleaned, 'base64');
 
       // 4) Filename parsing
-      const parsed = (() => {
-        try { return parseRosterFilename(fileName); }
-        catch (e) {
-          if (e instanceof FilenameParseError) throw e;
-          throw new FilenameParseError(fileName);
-        }
-      })();
+      let parsed: {
+        client: string;
+        month: string;
+        year: string;
+        invoiceNumber: string;
+        date: string; // YYYY-MM
+      };
+      try {
+        parsed = parseRosterFilename(fileName);
+      } catch (e) {
+        if (e instanceof FilenameParseError) throw e;
+        throw new FilenameParseError(fileName);
+      }
 
       // 5) PDF uitlezen
-      const dayNumbers = await (async () => {
-        try { return await extractDaysWithSabine(pdfBuffer); }
-        catch (e) {
-          if (e instanceof PdfParseError) throw e;
-          throw new PdfParseError(`PDF parsing failed: ${e instanceof Error ? e.message : String(e)}`);
-        }
-      })();
+      let dayNumbers: number[];
+      try {
+        dayNumbers = await extractDaysWithSabine(pdfBuffer);
+      } catch (e) {
+        if (e instanceof PdfParseError) throw e;
+        throw new PdfParseError(`PDF parsing failed: ${e instanceof Error ? e.message : String(e)}`);
+      }
+
+      // 6) Output structureren (ongewijzigde functionaliteit)
+      const { client, invoiceNumber, date } = parsed;
+      const items = dayNumbers.map((d) => ({
+        description: client,
+        quantity: d,
+      }));
+
+      returnData.push({
+        json: {
+          invoiceNumber,
+          date,
+          data: { items },
+        },
+      });
+    }
+
+    return [returnData];
+  }
+}
