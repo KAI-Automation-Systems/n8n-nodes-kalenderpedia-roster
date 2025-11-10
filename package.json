@@ -1,0 +1,31 @@
+{
+  "name": "n8n-nodes-kalenderpedia-roster",
+  "version": "1.0.0",
+  "description": "n8n custom node for parsing Kalenderpedia roster PDFs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "lint": "echo \"lint skipped\""
+  },
+  "dependencies": {
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^3.11.174",
+    "iconv-lite": "^0.6.3",
+    "dayjs": "^1.11.10",
+    "n8n-workflow": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.6",
+    "tslib": "^2.6.2"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": [
+      "dist/nodes/KalenderpediaRosterParser/KalenderpediaRosterParser.node.js"
+    ]
+  }
+}
+

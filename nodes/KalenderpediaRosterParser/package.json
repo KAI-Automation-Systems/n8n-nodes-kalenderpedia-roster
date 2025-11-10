@@ -1,0 +1,38 @@
+{
+  "name": "n8n-nodes-kalenderpedia-roster",
+  "version": "1.0.0",
+  "description": "Custom n8n node that parses Kalenderpedia roster PDFs to extract days with 'Sabine'.",
+  "author": "KAI Automation Systems (Kevin Mast)",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^3.11.174",
+    "iconv-lite": "^0.6.3",
+    "dayjs": "^1.11.10"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.0",
+    "tslib": "^2.6.2",
+    "rimraf": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "n8n",
+    "node",
+    "pdf",
+    "parser",
+    "kalenderpedia",
+    "automation",
+    "workflow"
+  ]
+}

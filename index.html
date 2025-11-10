@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game - Retro Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐍 SNAKE GAME 🐍</h1>
+            <p class="subtitle">16-Bit Retro Edition</p>
+        </header>
+
+        <div class="game-wrapper">
+            <div class="score-board">
+                <div class="score-item">
+                    <span class="label">Score:</span>
+                    <span id="score">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="label">High Score:</span>
+                    <span id="high-score">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="label">Level:</span>
+                    <span id="level">1</span>
+                </div>
+            </div>
+
+            <canvas id="gameCanvas" width="600" height="600"></canvas>
+
+            <div class="power-up-indicator">
+                <div id="active-powerup" class="powerup-display"></div>
+            </div>
+
+            <div class="controls">
+                <div class="control-info">
+                    <p>Controls: Arrow keys or WASD</p>
+                    <p>Press SPACE to pause</p>
+                </div>
+            </div>
+
+            <div id="game-over-screen" class="game-over hidden">
+                <h2>GAME OVER</h2>
+                <p>Your Score: <span id="final-score">0</span></p>
+                <button id="restart-btn">New Game</button>
+            </div>
+
+            <div id="start-screen" class="start-screen">
+                <h2>Ready to play?</h2>
+                <button id="start-btn">Start</button>
+            </div>
+
+            <div id="pause-screen" class="pause-screen hidden">
+                <h2>PAUSED</h2>
+                <p>Press SPACE to continue</p>
+            </div>
+        </div>
+
+        <div class="power-up-info">
+            <h3>Power-Ups:</h3>
+            <ul>
+                <li><span class="powerup-icon speed">⚡</span> Speed Boost - Move faster</li>
+                <li><span class="powerup-icon slow">🐌</span> Slow Motion - Move slower</li>
+                <li><span class="powerup-icon double">💎</span> Double Points - Double points</li>
+                <li><span class="powerup-icon shield">🛡️</span> Shield - No collisions</li>
+                <li><span class="powerup-icon shrink">📉</span> Shrink - Snake becomes shorter</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
